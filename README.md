@@ -80,7 +80,12 @@ Jump out
 i = 2  j = 3
 exited FOR J loop
 exited FOR I loop
+READY
+>
 ````
+
+We clearly see that after the 'Jump out', J is incremented one more time (by the NEXT statement at line 70), meaning that the FOR J
+loop was not really exited.
 
 If we specify the control variables I and J after the NEXT keywords, we get something different, more expectable.
 
@@ -103,7 +108,11 @@ i = 2  j = 1
 i = 2  j = 2
 Jump out
 exited FOR I loop
+READY
+>
 ````
+
+Here, by forcing the NEXT statement at line 70 to increment the variable I, the FOR J stack frame is forced to be discarded, so the FOR J loop is now effectively exited.
 
 We can also demonstrate that a RETURN in a loop effectively breaks the loop, with the following example _without_ the control variables after NEXT, 
 where the inner loop is moved to a subroutine. The NEXT statement in line 70 always bumps the I variable, whether the FOR J loop was broken or not.
@@ -131,7 +140,11 @@ i = 2  j = 1
 i = 2  j = 2
 Break out
 exited FOR I loop
+READY
+>
 ````
+
+The RETURN statement in line 130 effectively discards the FOR J stack frame, and the NEXT at line 70 increments the variable I, not J.
 
 Now let's go back to the original post's examples and see how we can rewrite them.
 
